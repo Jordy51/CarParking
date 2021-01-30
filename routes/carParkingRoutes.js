@@ -1,9 +1,8 @@
-const e = require("express");
 const express = require("express");
 
 const router = express.Router();
 
-const CarPark = require("../models/carparkSchema");
+const CarPark = require("../models/carParkingSchema");
 
 //1
 router.post("/parkCar", async (req, res) => {
@@ -17,41 +16,36 @@ router.post("/parkCar", async (req, res) => {
 			.catch((err) => console.log(err));
 	} else {
 		await CarPark.find().countDocuments((err, count) => {
-			if (count <= process.env.ParkingCapacity) {
+			if (count < process.env.ParkingCapacity) {
+
 				const newSlot = new CarPark();
-
-				console.log(CarPark.find().sort({ field }));
-				newSlot.slotNo = CarPark.find({ slotNo: { $max } });
-
+				console.log("The current count = " + count.toString());
+				newSlot.slotNo = count + 1;
 				newSlot.carNo = req.body.carNo;
 				newSlot.slotAvailable = false;
 				newSlot
 					.save()
 					.then((newSlot) => res.status(200).send("Car is parked at Slot " + newSlot.slotNo))
 					.catch((err) => console.log(err));
+					
 			} else {
 				res.status(400).send("No Empty slot found!");
 			}
 		});
-
-		// const newSlot = new CarPark();
 	}
-	// if(ParkingSlot)
-	// const newEntry = new CarPark({
-	// 	carNo: req.body.carNo,
-	// 	slotNo: 10,
-	// 	slotAvailable: false,
-	// });
 });
 
 //2
 router.post("/unparkCar", async (req, res) => {
-	await CarPark.findOneAndUpdate({ slotNo: req.body.slotNo }).exec((err, ParkingSlot) => {
+	console.log(req.body)
+	console.log(typeof req.body.slotNo)
+	await CarPark.findOne({ slotNo: req.body.slotNo }).exec((err, ParkingSlot) => {
+		console.log(ParkingSlot.slotNo);
 		if (ParkingSlot.slotAvailable == false) {
 			ParkingSlot.slotAvailable = true;
 			ParkingSlot.carNo = "";
 			ParkingSlot.save()
-				.then(res.status(200).send())
+				.then(res.status(200).send(ParkingSlot.carNo))
 				.catch((err) => console.log(err));
 		} else {
 			res.status(404).send("Car not found!");
@@ -63,15 +57,11 @@ router.post("/unparkCar", async (req, res) => {
 router.get("/", async (req, res) => {
 	if (req.body.carNo) {
 		await CarPark.findOne({ carNo: req.body.carNo }).exec((err, ParkingSlot) => {
-			const slotNo = ParkingSlot.slotNo;
-			const carNo = ParkingSlot.carNo;
-			res.status(200).send({ carNo, slotNo });
+			res.status(200).send({ carNo: ParkingSlot.carNo, slotNo: ParkingSlot.slotNo });
 		});
 	} else if (req.body.slotNo) {
 		await CarPark.findOne({ slotNo: req.body.slotNo }).exec((err, ParkingSlot) => {
-			const carNo = ParkingSlot.carNo;
-			const slotNo = ParkingSlot.slotNo;
-			res.status(200).send({ carNo, slotNo });
+			res.status(200).send({ carNo: ParkingSlot.carNo, slotNo: ParkingSlot.slotNo });
 		});
 	}
 });

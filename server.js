@@ -11,6 +11,13 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/", require("./routes/carParkRoutes"))
+app.use((req, res, next) => {
+    
+    console.log('Time:', Date.now())
+
+    next()
+  })  
+
+app.use("/", require("./routes/carParkingRoutes"))
 
 app.listen(PORT, () => console.log(`Server is up and running on http://localhost:${PORT}`));
