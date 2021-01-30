@@ -17,17 +17,15 @@ router.post("/parkCar", async (req, res) => {
 	} else {
 		await CarPark.find().countDocuments((err, count) => {
 			if (count < process.env.ParkingCapacity) {
-
 				const newSlot = new CarPark();
-				console.log("The current count = " + count.toString());
+
 				newSlot.slotNo = count + 1;
 				newSlot.carNo = req.body.carNo;
 				newSlot.slotAvailable = false;
 				newSlot
 					.save()
-					.then((newSlot) => res.status(200).send("Car is parked at Slot " + newSlot.slotNo))
+					.then(res.status(200).send(ParkingSlot.slotNo))
 					.catch((err) => console.log(err));
-					
 			} else {
 				res.status(400).send("No Empty slot found!");
 			}
@@ -37,10 +35,7 @@ router.post("/parkCar", async (req, res) => {
 
 //2
 router.post("/unparkCar", async (req, res) => {
-	console.log(req.body)
-	console.log(typeof req.body.slotNo)
 	await CarPark.findOne({ slotNo: req.body.slotNo }).exec((err, ParkingSlot) => {
-		console.log(ParkingSlot.slotNo);
 		if (ParkingSlot.slotAvailable == false) {
 			ParkingSlot.slotAvailable = true;
 			ParkingSlot.carNo = "";
