@@ -55,3 +55,9 @@ Input format (`carNo/slotNo`)
 
 1. ParkingCapacity
 2. MongoURI :- I am give my MongoDB Atlas UIR for assesment, if you want you can put your MongoDB URI here.
+3. PORT :- If not mentioned the server will run on _localhost:5000_ by default
+
+## Created by
+ Aditya
+ LinkedIn(`https://www.linkedin.com/in/adityakumawat51/`)
+ Email(`adityakumawat51@gmail.com`)
