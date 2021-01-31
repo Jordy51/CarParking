@@ -60,6 +60,6 @@ Input format (`carNo/slotNo`)
 ## Created by
  Aditya
  
- LinkedIn [https://www.linkedin.com/in/adityakumawat51/](https://www.linkedin.com/in/adityakumawat51/)
+ LinkedIn [https://www.linkedin.com/in/adityakumawat51](https://www.linkedin.com/in/adityakumawat51)
  
- Email [adityakumawat51@gmail.com]
+ Email [adityakumawat51@gmail.com](adityakumawat51@gmail.com)
