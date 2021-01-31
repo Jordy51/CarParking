@@ -57,6 +57,32 @@ Input format (`carNo/slotNo`)
 2. MongoURI :- I am give my MongoDB Atlas UIR for assesment, if you want you can put your MongoDB URI here.
 3. PORT :- If not mentioned the server will run on _localhost:5000_ by default
 
+## Database
+To drop database collection uncomment the following lines of code in _db/mongoDB.js_ file
+
+```sh
+const mongoose = require("mongoose");
+
+const db = process.env.MongoURI;
+
+mongoose
+	.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+	.then(() => {
+		console.log("MongoDB Connected!");
+
+		// Droping DataBase
+		// mongoose.connection.db.dropCollection("carparks", (err, result) => {
+		// 	if (err) {
+		// 		console.log("Collection Droped!");
+		// 	}
+		// });
+	})
+	.catch((err) => {
+		console.log(err);
+	});
+
+```
+
 ## Created by
  Aditya
  
