@@ -59,5 +59,7 @@ Input format (`carNo/slotNo`)
 
 ## Created by
  Aditya
- LinkedIn(`https://www.linkedin.com/in/adityakumawat51/`)
- Email(`adityakumawat51@gmail.com`)
+ 
+ LinkedIn [`https://www.linkedin.com/in/adityakumawat51/`]
+ 
+ Email [`adityakumawat51@gmail.com`]
