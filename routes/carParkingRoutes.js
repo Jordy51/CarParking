@@ -5,7 +5,6 @@ const router = express.Router();
 const CarPark = require("../models/carParkingSchema");
 
 //1 - Park a Car
-
 router.all("/parkCar", async (req, res) => {
 	console.log(req.method);
 	if (req.method != "POST") {

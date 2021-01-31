@@ -1,6 +1,6 @@
 # CarParkingAPIs
 
-#### Simple carparking management APIs builtin NodeJS using Express Framework and MongoDB as database
+#### Simple carparking management APIs built using NodeJS, Express Framework and MongoDB as database
 
 ## Installation
 
