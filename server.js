@@ -1,6 +1,6 @@
 const express = require("express");
 const requestIp = require("request-ip");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,11 +10,8 @@ require("./db/mongoDB");
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 let ips = {};
 
@@ -33,7 +30,6 @@ app.use((req, res, next) => {
 			}
 			ips[clientIp].time = Math.floor(Date.now() / 1000);
 		}
-
 	} else {
 		ips[clientIp] = { count: 1, time: Math.floor(Date.now() / 1000) };
 	}
@@ -41,5 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", require("./routes/carParkingRoutes"));
+
+
 
 app.listen(PORT, () => console.log(`Server is up and running on http://localhost:${PORT}`));
